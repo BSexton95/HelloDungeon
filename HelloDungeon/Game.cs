@@ -6,6 +6,18 @@ namespace HelloDungeon
 {
     class Game
     {
+        string characterName = "Empty";
+
+        void DisplayPlayerStats();
+        {
+            Console.WriteLine(characterName + "Name ");
+            Console.WriteLine(PlayerHealth + "Health ");
+
+        }
+
+        int GetInput(string descrption, string option1, string option2)
+
+    
         public void Run()
         {
             //
@@ -33,6 +45,8 @@ namespace HelloDungeon
             int lowLevelPistolDamage = 40;
             string weapon = "Empty";
             bool playerDied;
+
+
 
             //Player enters there character name
             Console.WriteLine("What is your adventure name.");
@@ -82,6 +96,10 @@ namespace HelloDungeon
             
             //While loop condition declared
             bool validInputReceived = false;
+            /* Note
+                !A && !B
+                !(A || B)
+            */
             //While input is not valid, displays choices again
             while (validInputReceived == false)
             {
