@@ -28,7 +28,7 @@ namespace HelloDungeon
             int playerAttackDamage1 = 30;
             int playerAttackDamage2 = 20;
             int enemyAttackDamage = 20;
-            int inventory = 5;
+            int inventory = 0;
             int lowLevelSwordDamage = 40;
             int lowLevelPistolDamage = 40;
             string weapon = "Empty";
@@ -233,13 +233,32 @@ namespace HelloDungeon
                 "and have had many incounters with enemys." + "\n You have now stopped at a merchant store to replenish your stock of potions." +
                 "\n You have a very limited amount of space and can only buy 2 items.");
             Console.WriteLine("Items in store" +
-                "\n 1.Potion of healing +20 ($100)" + "\n 2.Poison"
+                "\n 1.Potion of healing +20 ($100)" + "\n 2.Poison" + "\n 3.Potion of Power");
 
             bool validInputRecieved = true;
+            input = Console.ReadLine();
 
-            while (validInputRecieved == false) ;
+            while (validInputRecieved == false) 
             {
-
+                if (input == "1" || input == "Potion of healing")
+                {
+                    Console.WriteLine("You have choosen Potion of Healing");
+                    inventory = 1 + inventory;
+                }
+                else if (input == "2" || input == "Poison")
+                {
+                    Console.WriteLine("You have choosen Poison.");
+                    inventory = 1 + inventory;
+                }
+                else if (input == "3" || input == "Potion of Power") 
+                {
+                    Console.WriteLine("You have choosen Potion of Power.");
+                    inventory = 1 + inventory;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid Input");
+                }
             }
 
 
