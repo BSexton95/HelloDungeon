@@ -7,7 +7,7 @@ namespace HelloDungeon
     class Game
     {
         string playerName = "Empty";
-        float playerHealth = 100.0f;
+        int playerHealth = 100;
         //int level = 1;
         //float enemyHealth = 100.0f;
         int playerAttackDamage1 = 30;
@@ -22,42 +22,64 @@ namespace HelloDungeon
 
         void DisplayPlayerStats()
         {
-
             Console.WriteLine("Character Stats");
             Console.WriteLine("Name " + playerName);
+            Console.WriteLine("Health " + playerHealth);
             Console.WriteLine("Main Attack Damage " + playerAttackDamage1);
             Console.WriteLine("Secondary Attack Damage " + playerAttackDamage2);
         }
 
+        void CharacterJob()
+        {
+            int input = GetInput("Pick a job!", "1.Wizard", "2.Knight");
 
-        
+            
+
+            //If player chooses wizard
+            if (input == 1)
+            {
+                //Wizard Stats
+                characterJob = "Wizard";
+                playerHealth = 300;
+                playerAttackDamage1 = 400;
+                
+            }
+            //If player chooses knight
+            else if (input == 2)
+            {
+                //Knight Stats
+                characterJob = "Knight";
+                playerHealth = 300;
+                playerAttackDamage2 = 400;
+            }
+            //If player chooses anything else
+            else
+            {
+                //Players input was invalid
+                Console.WriteLine("invalid input");
+            }
+
+        }
 
 
         void Interaction1()
         {
-            Console.WriteLine("On your adventure you have stumbled into an abandoned village.");
-            Console.WriteLine("As you are exploring this village you notice a dog huddled in a corner.");
-            Console.WriteLine("Should you\n 1.Slowly approach the dog?\n 2.Ignore the dog?");
-            Console.Write(">");
-
-            string input = Console.ReadLine();
-
-
-
+            //First interaction
+           int input = GetInput("On your adventure you have stumbled into an abandoned village." +
+                "\n As you are exploring this village you notice a dog huddled in a corner." + 
+                "\n Should you ", "1.Slowly approach the dog?", "2.Ignore the dog?");
+ 
             //If player chooses to approach dog
-            if (input == "1" || input == "Slowly approach the dog")
+            if (input == 1)
             {
                 //What happens when player approches dog
-                Console.WriteLine("As you are slowly approaching the dog reaching out with your hand the dog starts to growl.");
-                Console.WriteLine("You halt to reassess your decision");
-                Console.WriteLine("Do you wish to continue forward?\n 1.Yes\n 2.No");
-                Console.Write(">");
+                input = GetInput("You are slowly approaching the dog reaching out with your hand the dog starts to growl." +
+                    "\n You halt to reassess your decision" + "\n Do you wish to continue forward?", "1.Yes", "2.No");
+                
 
-                //Get users input
-                input = Console.ReadLine();
 
                 //If player continues to approach dog
-                if (input == "1" || input == "Yes")
+                if (input == 1)
                 {
                     //What happens when player contiues forward
                     Console.WriteLine("The dog stops growling and sniffs your hand.\nThe dog seems to like you.");
@@ -65,7 +87,7 @@ namespace HelloDungeon
                     //Player enters dog name here
                 }
                 //if player decides to turn back
-                else if (input == "2" || input == "No")
+                else if (input == 2)
                 {
                     //What happens when player turns back
                     Console.WriteLine("As you start to turn away from the dog, the dog suddenly lunges forward and starts to attack you.");
@@ -76,7 +98,7 @@ namespace HelloDungeon
                 }
             }
             //If player ignores dog
-            else if (input == "2" || input == "Ignore the dog")
+            else if (input == 2)
             {
                 //What happens to player if player ignores dog
                 Console.WriteLine("The dog dosn't seem to notice as you walk by.");
@@ -85,32 +107,63 @@ namespace HelloDungeon
             {
                 Console.WriteLine("Invalid input");
             }
-
+            Console.ReadKey();
             Console.Clear();
         }
 
 
-        int GetInput(string description, string option1, string option2)
-        {
-            string input = Console.ReadLine();
 
-            if (input == "1" || input == option1)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="description"></param>
+        /// <param name="option1"></param>
+        /// <param name="option2"></param>
+        /// <returns></returns>
+        int GetInput(string description, string option1, string option2)
+        { 
+            string input = "";
+            int inputReceived = 0;
+
+            //Loops if player enters invalid input
+            while (!(inputReceived == 1 || inputReceived == 2))
             {
-                Console.WriteLine(option1);
-                return 1;
+                Console.WriteLine(description);
+                Console.WriteLine("1. " + option1);
+                Console.WriteLine("2. " + option2);
+                Console.Write(">");
+
+                //Get player input
+                input = Console.ReadLine();
+
+                if (input == "1" || input == option1)
+                {
+                    //Set input received to be the first option
+                    inputReceived = 1;
+                    Console.WriteLine(option1);
+                    
+                }
+                //Otherwise if the player selected the second option...
+                else if (input == "2" || input == option2)
+                {
+                    //Set input received to be the second option
+                    inputReceived = 2;
+                    Console.WriteLine(option2);
+                    
+                }
+                //Of neither are true...
+                else
+                {
+                    //Display error message
+                    Console.WriteLine("Invalid input");
+                }
+
+                Console.ReadKey();
+                Console.Clear();
             }
-            else if (input == "2" || input == option2)
-            {
-                Console.WriteLine(option2);
-                return 1;
-            }
-            else
-            {
-                Console.WriteLine("Invalid input");
-                return 1;
-            }
+            return inputReceived;
         }
-    
+
 
         public void Run()
         {
@@ -158,38 +211,17 @@ namespace HelloDungeon
             //string input = GetInput();
 
             //Display player weapon choice
-            Console.WriteLine("Please choose starting weapon.");
-            Console.WriteLine("1.Sword");
-            Console.WriteLine("2.Gun");
+            //Console.WriteLine("Please choose starting weapon.");
+            //Console.WriteLine("1.Sword");
+            //Console.WriteLine("2.Gun");
 
-            int input = GetInput("Weapon Choice", "Sword", "Gun");
+            //Calling GetInput for player to choose a weapon
+            GetInput("Weapon Choice", "Sword", "Gun");
 
             DisplayPlayerStats();
+            CharacterJob();
             Console.ReadKey();
             Console.Clear();
-
-            /*
-             if (input == "1" || input == "Sword")
-             {
-                 Console.WriteLine("")
-                 weapon = "Sword (Damage 40)";
-             }
-             else if (input == "2" || input == "Gun") 
-             {
-                 weapon = "Gun (Damage 40)";
-             }
-             else
-             {
-                 Console.WriteLine("Invalid input");
-             }
-             */
-            
-             Console.WriteLine("Character Stats");
-             Console.WriteLine("Name " + playerName);
-             Console.WriteLine("Weapon " + weapon);
-             Console.WriteLine("Main Attack Damage " + playerAttackDamage1);
-             Console.WriteLine("Secondary Attack Damage " + playerAttackDamage2);
-
 
              Interaction1();
 
