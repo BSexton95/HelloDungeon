@@ -6,18 +6,112 @@ namespace HelloDungeon
 {
     class Game
     {
-        string characterName = "Empty";
+        string playerName = "Empty";
+        float playerHealth = 100.0f;
+        //int level = 1;
+        //float enemyHealth = 100.0f;
+        int playerAttackDamage1 = 30;
+        int playerAttackDamage2 = 20;
+        //int enemyAttackDamage = 20;
+        int inventory = 0;
+        int sword = 40;
+        int gun = 40;
+        string weapon = "Empty";
+        bool playerDied;
+        string characterJob = "Empty";
 
-        void DisplayPlayerStats();
+        void DisplayPlayerStats()
         {
-            Console.WriteLine(characterName + "Name ");
-            Console.WriteLine(PlayerHealth + "Health ");
 
+            Console.WriteLine("Character Stats");
+            Console.WriteLine("Name " + playerName);
+            Console.WriteLine("Main Attack Damage " + playerAttackDamage1);
+            Console.WriteLine("Secondary Attack Damage " + playerAttackDamage2);
         }
 
-        int GetInput(string descrption, string option1, string option2)
 
+        
+
+
+        void Interaction1()
+        {
+            Console.WriteLine("On your adventure you have stumbled into an abandoned village.");
+            Console.WriteLine("As you are exploring this village you notice a dog huddled in a corner.");
+            Console.WriteLine("Should you\n 1.Slowly approach the dog?\n 2.Ignore the dog?");
+            Console.Write(">");
+
+            string input = Console.ReadLine();
+
+
+
+            //If player chooses to approach dog
+            if (input == "1" || input == "Slowly approach the dog")
+            {
+                //What happens when player approches dog
+                Console.WriteLine("As you are slowly approaching the dog reaching out with your hand the dog starts to growl.");
+                Console.WriteLine("You halt to reassess your decision");
+                Console.WriteLine("Do you wish to continue forward?\n 1.Yes\n 2.No");
+                Console.Write(">");
+
+                //Get users input
+                input = Console.ReadLine();
+
+                //If player continues to approach dog
+                if (input == "1" || input == "Yes")
+                {
+                    //What happens when player contiues forward
+                    Console.WriteLine("The dog stops growling and sniffs your hand.\nThe dog seems to like you.");
+                    Console.WriteLine("Congratulations you now have a new bestfriend to travel along with you in your adventrue.");
+                    //Player enters dog name here
+                }
+                //if player decides to turn back
+                else if (input == "2" || input == "No")
+                {
+                    //What happens when player turns back
+                    Console.WriteLine("As you start to turn away from the dog, the dog suddenly lunges forward and starts to attack you.");
+                }
+                else
+                {
+                    Console.WriteLine("invalid input");
+                }
+            }
+            //If player ignores dog
+            else if (input == "2" || input == "Ignore the dog")
+            {
+                //What happens to player if player ignores dog
+                Console.WriteLine("The dog dosn't seem to notice as you walk by.");
+            }
+            else
+            {
+                Console.WriteLine("Invalid input");
+            }
+
+            Console.Clear();
+        }
+
+
+        int GetInput(string description, string option1, string option2)
+        {
+            string input = Console.ReadLine();
+
+            if (input == "1" || input == option1)
+            {
+                Console.WriteLine(option1);
+                return 1;
+            }
+            else if (input == "2" || input == option2)
+            {
+                Console.WriteLine(option2);
+                return 1;
+            }
+            else
+            {
+                Console.WriteLine("Invalid input");
+                return 1;
+            }
+        }
     
+
         public void Run()
         {
             //
@@ -33,7 +127,7 @@ namespace HelloDungeon
             */
             //Test commit
 
-            string playerName = "Empty";
+            /*string playerName = "Empty";
             float playerHealth = 100.0f;
             int level = 1;
             float enemyHealth = 100.0f;
@@ -41,11 +135,12 @@ namespace HelloDungeon
             int playerAttackDamage2 = 20;
             int enemyAttackDamage = 20;
             int inventory = 0;
-            int lowLevelSwordDamage = 40;
-            int lowLevelPistolDamage = 40;
+            int sword = 40;
+            int gun = 40;
             string weapon = "Empty";
             bool playerDied;
-
+            string characterJob = "Empty";
+            */
 
 
             //Player enters there character name
@@ -60,13 +155,20 @@ namespace HelloDungeon
             Console.Clear();
 
             //Get players input
-            /* string input = Console.ReadLine();
+            //string input = GetInput();
 
-             //Display player weapon choice
-             Console.WriteLine("Please choose starting weapon.");
-             Console.WriteLine("1.Sword");
-             Console.WriteLine("2.Gun");
+            //Display player weapon choice
+            Console.WriteLine("Please choose starting weapon.");
+            Console.WriteLine("1.Sword");
+            Console.WriteLine("2.Gun");
 
+            int input = GetInput("Weapon Choice", "Sword", "Gun");
+
+            DisplayPlayerStats();
+            Console.ReadKey();
+            Console.Clear();
+
+            /*
              if (input == "1" || input == "Sword")
              {
                  Console.WriteLine("")
@@ -80,26 +182,29 @@ namespace HelloDungeon
              {
                  Console.WriteLine("Invalid input");
              }
-
+             */
+            
              Console.WriteLine("Character Stats");
              Console.WriteLine("Name " + playerName);
              Console.WriteLine("Weapon " + weapon);
              Console.WriteLine("Main Attack Damage " + playerAttackDamage1);
              Console.WriteLine("Secondary Attack Damage " + playerAttackDamage2);
-             */
 
 
+             Interaction1();
+
+        
 
             //While loop exercise
-            string characterJob = "Empty";
-            string input = "Empty";
-            
+            //string characterJob = "Empty";
+            //string input = "Empty";
+            /*
             //While loop condition declared
             bool validInputReceived = false;
             /* Note
                 !A && !B
                 !(A || B)
-            */
+            /*
             //While input is not valid, displays choices again
             while (validInputReceived == false)
             {
@@ -112,10 +217,10 @@ namespace HelloDungeon
                 Console.Write(">");
 
                 //Gets player input
-                input = Console.ReadLine();
+                playerInput = Console.ReadLine();
 
                 //If player chooses wizard
-                if (input == "1" || input == "wizard")
+                if (playerInput == "1" || playerInput == "wizard")
                 {
                     //Wizard Stats
                     characterJob = "Wizard";
@@ -124,7 +229,7 @@ namespace HelloDungeon
                     validInputReceived = true;
                 }
                 //If player chooses knight
-                else if (input == "2" || input == "knight")
+                else if (playerInput == "2" || playerInput == "knight")
                 {
                     //Knight Stats
                     characterJob = "Knight";
@@ -158,58 +263,7 @@ namespace HelloDungeon
             Console.Clear();
 
             //First area player enters
-            Console.WriteLine("On your adventure you have stumbled into an abandoned village.");
-            Console.WriteLine("As you are exploring this village you notice a dog huddled in a corner.");
-            Console.WriteLine("Should you\n 1.Slowly approach the dog?\n 2.Ignore the dog?");
-            Console.Write(">");
-
-            input = Console.ReadLine();
-
            
-            
-                //If player chooses to approach dog
-                if (input == "1" || input == "Slowly approach the dog")
-                {
-                    //What happens when player approches dog
-                    Console.WriteLine("As you are slowly approaching the dog reaching out with your hand the dog starts to growl.");
-                    Console.WriteLine("You halt to reassess your decision");
-                    Console.WriteLine("Do you wish to continue forward?\n 1.Yes\n 2.No");
-                    Console.Write(">");
-
-                    //Get users input
-                    input = Console.ReadLine();
-
-                    //If player continues to approach dog
-                    if (input == "1" || input == "Yes")
-                    {
-                        //What happens when player contiues forward
-                        Console.WriteLine("The dog stops growling and sniffs your hand.\nThe dog seems to like you.");
-                        Console.WriteLine("Congratulations you now have a new bestfriend to travel along with you in your adventrue.");
-                        //Player enters dog name here
-                    }
-                    //if player decides to turn back
-                    else if (input == "2" || input == "No")
-                    {
-                        //What happens when player turns back
-                        Console.WriteLine("As you start to turn away from the dog, the dog suddenly lunges forward and starts to attack you.");
-                    }
-                    else
-                    {
-                        Console.WriteLine("invalid input");
-                    }
-                }
-                //If player ignores dog
-                else if (input == "2" || input == "Ignore the dog")
-                {
-                    //What happens to player if player ignores dog
-                    Console.WriteLine("The dog dosn't seem to notice as you walk by.");
-                }
-                else
-                {
-                    Console.WriteLine("Invalid input");
-                }
-                
-            Console.Clear();
 
             //For loop exercise
 
@@ -229,9 +283,9 @@ namespace HelloDungeon
                 int attemptsRemaining = numberOfAttempts - i;
                 Console.WriteLine("Attempts Remaining: " + attemptsRemaining);
                 Console.Write("> ");
-                input = Console.ReadLine();
+                playerInput = Console.ReadLine();   
 
-                if (input == "egg")
+                if (playerInput == "egg")
                 {
                     Console.WriteLine("Congrats! You have gained immortality");
                     break;
@@ -254,21 +308,21 @@ namespace HelloDungeon
                 "\n 1.Potion of healing +20 ($100)" + "\n 2.Poison" + "\n 3.Potion of Power");
 
             bool validInputRecieved = true;
-            input = Console.ReadLine();
+            string playerInput = Console.ReadLine();
 
             while (validInputRecieved == false) 
             {
-                if (input == "1" || input == "Potion of healing")
+                if (playerInput == "1" || playerInput == "Potion of healing")
                 {
                     Console.WriteLine("You have choosen Potion of Healing");
                     inventory = 1 + inventory;
                 }
-                else if (input == "2" || input == "Poison")
+                else if (playerInput == "2" || playerInput == "Poison")
                 {
                     Console.WriteLine("You have choosen Poison.");
                     inventory = 1 + inventory;
                 }
-                else if (input == "3" || input == "Potion of Power") 
+                else if (playerInput == "3" || playerInput == "Potion of Power") 
                 {
                     Console.WriteLine("You have choosen Potion of Power.");
                     inventory = 1 + inventory;
@@ -277,7 +331,7 @@ namespace HelloDungeon
                 {
                     Console.WriteLine("Invalid Input");
                 }
-            }
+            }*/
 
 
 
