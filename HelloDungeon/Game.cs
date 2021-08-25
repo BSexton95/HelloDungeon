@@ -8,13 +8,9 @@ namespace HelloDungeon
     {
         string playerName = "Empty";
         int playerHealth = 100;
-        int playerPower = 100;
-        //float enemyHealth = 100.0f;
-        int playerAttackDamage = 30;
-        //int enemyAttackDamage = 20;
-        int sword = 40;
-        int gun = 40;
-        string weapon = "Empty";
+        int playerPower = 40;
+        int enemyHealth = 100;
+        int enemyPower = 20;
         bool gameOver = false;
         bool isPlayerAlive = true;
         string characterClass = "Empty";
@@ -26,10 +22,22 @@ namespace HelloDungeon
             Console.WriteLine("Character Stats");
             Console.WriteLine("Name " + playerName);
             Console.WriteLine("Class " + characterClass);
-            Console.WriteLine("Weapon " + weapon);
             Console.WriteLine("Health " + playerHealth);
             Console.WriteLine("Power " + playerPower);
-            Console.WriteLine("Main Attack Damage " + playerAttackDamage);
+        }
+
+        void PlayerName()
+        {
+            //Player enters there character name
+            Console.WriteLine("Please enter your name.");
+            playerName = Console.ReadLine();
+
+            //Console displays player name and welcomes them to the game
+            Console.Write("Hello " + playerName);
+            Console.WriteLine(", welcome to your first adventure!");
+
+            Console.ReadKey();
+            Console.Clear();
         }
 
         /// <summary>
@@ -45,7 +53,7 @@ namespace HelloDungeon
                 //Wizard Stats
                 characterClass = "Warlock";
                 playerHealth = 100;
-                playerAttackDamage = 30;
+                playerPower = 40;
 
             }
             //If player chooses knight
@@ -54,7 +62,7 @@ namespace HelloDungeon
                 //Knight Stats
                 characterClass = "Elf";
                 playerHealth = 100;
-                playerAttackDamage = 30;
+                playerPower = 40;
             }
             //If player chooses anything else
             else
@@ -73,14 +81,14 @@ namespace HelloDungeon
             //First interaction
             int input = GetInput("On your adventure you have stumbled into an abandoned village." +
                  "\n As you are exploring this village you notice a dog huddled in a corner." +
-                 "\n Should you ", "1.Slowly approach the dog?", "2.Ignore the dog?");
+                 "\n Should you ", "Slowly approach the dog?", "Ignore the dog?");
 
             //If player chooses to approach dog
             if (input == 1)
             {
                 //What happens when player approches dog
                 input = GetInput("You are slowly approaching the dog reaching out with your hand the dog starts to growl." +
-                    "\n You halt to reassess your decision" + "\n Do you wish to continue forward?", "1.Yes", "2.No");
+                    "\n You halt to reassess your decision" + "\n Do you wish to continue forward?", "Yes", "No");
 
 
 
@@ -162,35 +170,48 @@ namespace HelloDungeon
                 "\n "
         }
         */
+
         /// <summary>
         /// Player stops at a merchant shop to choose if they want to replenish their health or power
         /// </summary>
         void MerchantStop()
         {
+            //Players health is set to 50
             playerHealth = 50;
+            //Players power is set to 50
             playerPower = 50;
 
+            //The function GetInput is called for player to choose if they want a healing potion or a power potion
             int input = GetInput("You have been traveling for about a week now and have had many incounters with enemys." +
                 "\n Due to these incounters you have lost 50 health and 50 power." +
                 "\n You have stopped at a merchant store to replenish but" +
                 "\n unfortantly you have a very limited amount of space and can only buy 1 item." +
-                "\n Items in stock: ", "1.Potion of Healing", "2. Potion of Power");
+                "\n Items in stock: ", "Potion of Healing", "Potion of Power");
 
+            //If player chooses a potion of healing...
             if (input == 1)
             {
+                //...will display to player that they have chosen a potion of healing
                 Console.WriteLine("You have choosen Potion of Healing");
+                //...will add 50 to players health setting playerHealth to 100
                 playerHealth = 50 + playerHealth;
 
             }
+            //Otherwise player choosed a potion of healing...
             else if (input == 2)
             {
+                //...will display to player that they have chosen a potion of power
                 Console.WriteLine("You have choosen Poison.");
-                playerPower = 50 + playerHealth;
+                //...will add 50 to players power setting playerPower to 100
+                playerPower = 50 + playerPower;
             }
+            //All other options are invalid inputs
             else
             {
+                //Prints Invalid Input to player console
                 Console.WriteLine("Invalid Input");
             }
+
             Console.ReadKey();
             Console.Clear();
 
@@ -249,21 +270,35 @@ namespace HelloDungeon
             return inputReceived;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         void CurrentLevel()
         {
-            if(level == 1)
+            if (level == 1)
             {
-                Interaction1();
+                //Player enters a name
+                PlayerName();
+                //Player chooses a class (Warlock or Elf)
+                CharacterClass();
+                //Displays player stats to console
+                DisplayPlayerStats();
+                Console.ReadKey();
+                Console.Clear();
             }
             else if(level == 2)
-            {
-                Interaction2();
+            { 
+                Interaction1();
             }
             else if(level == 3)
             {
-                MerchantStop();
+                Interaction2();
             }
             else if(level == 4)
+            {
+                MerchantStop();
+            }
+            else if(level == 5)
             {
 
             }
@@ -275,35 +310,24 @@ namespace HelloDungeon
         void DisplayMainMenu()
         {
             int input = GetInput("Would you like to play again?", "Yes", "No");
-
-            if (input == 2)
+            
+            //If player wishes to play again...
+            if (input == 1)
             {
+                //Level resest to the fist level
                 level = 1;
+                //Game over is reset to false
                 gameOver = false;
             }
-            else
+            //Otherwise player wishes to end game...
+            else if(input == 2)
             {
-                level++;
+                //Game ends
+                gameOver = true;
             }
         }
 
-        /*
-        void DisplayCurrentRoom()
-        {
-            if (currentArea == 1)
-            {
-                Room1();
-            }
-            else if(currentArea == 2)
-            {
-                Room2();
-            }
-            else if(currentArea == 3)
-            {
-                Room3();
-            }
-        }
-        */
+
         public void Run()
         {
             //Loop while game isn't over
@@ -312,72 +336,20 @@ namespace HelloDungeon
                 //Display interaction to player
                 CurrentLevel();
 
-                if(isPlayerAlive == false || level == 4)
+                //If player dies or beats the game...
+                //Will check if player is alive or if at last incounter
+                if (isPlayerAlive == false || level == 4)
                 {
-                    DisplayMainMenu();
-                }
-
-                /*
-                //Player enters there character name
-                Console.WriteLine("What is your adventure name.");
-                playerName = Console.ReadLine();
-
-                //Console displays player name and welcomes them to the game
-                Console.Write("Hello " + playerName);
-                Console.WriteLine(", welcome to your first adventure!");
-
-                Console.ReadKey();
-                Console.Clear();
-
-
-                //Calling GetInput for player to choose a weapon
-                GetInput("Weapon Choice", "Sword", "Gun");
-
-                //Calling function that lets player choose a class
-                CharacterClass();
-                //Calling function to display players stats after chooseing a class
-                DisplayPlayerStats();
-
-                //Player finds a dog interaction
-                Interaction1();
-
-                //Player finds a man with a riddle interaction
-                Interaction2();
-
-                //Player will choose between a healing potion and a power potion
-                MerchantStop();
-
-                //Displays player stats after choosing a potion
-                DisplayPlayerStats();
-
-                //Asks player if they want to play again
-               // DisplayMainMenu();
-            }
-
-            /*
-            while(!gameOver)
-            {
-                bool playerIsAlive = true;
-
-            //Pring the current room to the screen
-                DisplayCurrentRoom();
-
-                //If the player lost or beat the game...
-                //will check if player is alive or if at last incounter
-                if(playerIsAlive == false || currentArea ==3)
-                {
-                    //... print main menu
+                    //...print main menu
                     DisplayMainMenu();
                 }
                 //Otherwise if the player is alive and hasn't finished...
                 else
                 {
-                    //...increment the current area
-                    currentArea++;
+                    //...increment the level by 1
+                    level++;
                 }
             }
-            //Inside function where player dies (bool isPlayerAlive == true;)
-            */
         }
     }
 }
