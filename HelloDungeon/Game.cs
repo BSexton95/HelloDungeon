@@ -15,9 +15,10 @@ namespace HelloDungeon
         int sword = 40;
         int gun = 40;
         string weapon = "Empty";
-        bool gameOver;
-        bool isPlayerAlive;
+        bool gameOver = false;
+        bool isPlayerAlive = true;
         string characterClass = "Empty";
+        int level = 1;
 
         //Display players stats
         void DisplayPlayerStats()
@@ -247,6 +248,26 @@ namespace HelloDungeon
             }
             return inputReceived;
         }
+
+        void CurrentLevel()
+        {
+            if(level == 1)
+            {
+                Interaction1();
+            }
+            else if(level == 2)
+            {
+                Interaction2();
+            }
+            else if(level == 3)
+            {
+                MerchantStop();
+            }
+            else if(level == 4)
+            {
+
+            }
+        }
         
         /// <summary>
         /// Function askes player if they want to play the game again
@@ -257,8 +278,12 @@ namespace HelloDungeon
 
             if (input == 2)
             {
-                currentArea = 1;
-                gameOver = true;
+                level = 1;
+                gameOver = false;
+            }
+            else
+            {
+                level++;
             }
         }
 
@@ -284,6 +309,15 @@ namespace HelloDungeon
             //Loop while game isn't over
             while (!gameOver)
             {
+                //Display interaction to player
+                CurrentLevel();
+
+                if(isPlayerAlive == false || level == 4)
+                {
+                    DisplayMainMenu();
+                }
+
+                /*
                 //Player enters there character name
                 Console.WriteLine("What is your adventure name.");
                 playerName = Console.ReadLine();
@@ -317,7 +351,7 @@ namespace HelloDungeon
                 DisplayPlayerStats();
 
                 //Asks player if they want to play again
-                DisplayMainMenu();
+               // DisplayMainMenu();
             }
 
             /*
