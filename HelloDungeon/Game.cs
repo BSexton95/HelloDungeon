@@ -163,13 +163,24 @@ namespace HelloDungeon
 
         }
 
-        /*
         void FinalInteraction()
         {
             int input = GetInput("After picking a potion you continue on your adventure" +
-                "\n "
+                "\n you come upon a strange creature you have never seen before.", "Do you approach the creature?",
+                "Do you sit back and observe it?");
+
+            if(input == 1)
+            {
+                input = GetInput("As you start to approach the creature you notice it's sharp teeth protruding from it's mouth" +
+                    "\n and it's talins covered in blood", "Do you stop in your tracks?", "Do you continue your approach?");
+
+                if(input == 1)
+                {
+                    input = GetInput("You stop your approach and notice a bloody corpse at the creatures feet")
+                }
+            }
         }
-        */
+        
 
         /// <summary>
         /// Player stops at a merchant shop to choose if they want to replenish their health or power
