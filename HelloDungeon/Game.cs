@@ -172,12 +172,23 @@ namespace HelloDungeon
             if(input == 1)
             {
                 input = GetInput("As you start to approach the creature you notice it's sharp teeth protruding from it's mouth" +
-                    "\n and it's talins covered in blood", "Do you stop in your tracks?", "Do you continue your approach?");
+                    "\n and it's claws covered in blood", "Do you stop in your tracks?", "Do you continue your approach?");
 
                 if(input == 1)
                 {
-                    input = GetInput("You stop your approach and notice a bloody corpse at the creatures feet")
+                    input = GetInput("You stop your approach and notice a bloody corpse at the creatures feet", "Do you sneak up on the creature?", "Do you charge the creature and attack it?");
+
+                    if(input == 1)
+                    {
+                        Console.WriteLine("The creature notices you sneaking up and attacks and kills you");
+                        playerHealth = 0;
+                    }
+                    else if(input == 2)
+                    {
+                        Console.WriteLine("The creature is suprised by your attack and hesitates giving you the chance to kill the creature.");
+                    }
                 }
+                else if(input == 2)
             }
         }
         
